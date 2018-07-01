@@ -1,0 +1,110 @@
+import os
+class News:
+    def __init__(self):
+        self.name = ""
+        self.age = 0
+        self.nationality = ""
+        self.views = []
+        self.username = ""
+        self.password = ""
+
+    def add_User(self):
+        self.name = input("Enter the name: ")
+        self.age = int(input("Enter the age: "))
+        self.nationality = input("Enter the nationality: ")
+        self.username = input("Enter the username: ")
+        self. password = input("Enter the password: ")
+
+    def input_Views(self):
+        self.views.append(input("Enter your views: "))
+
+    def display_Views(self):
+        print(self.views)
+
+    def display_Details(self):
+        print("The username is: ",self.username)
+        print("The password is: ", self.password)
+        print("The name is: ",self.name)
+        print("The age is: ", self.age)
+        print("The nationality is: ", self.nationality)
+        print("The views is: ",self.views)
+
+    def delete_Views(self):
+        self.views.clear()
+
+info = list()
+def display():
+
+    option = 0
+    print("\t\t\t Welcome to the news feed app! \n\n")
+    print(" 1. Register \n 2. Login \n 3. Exit ")
+    while(option != 3):
+        option = int(input("Enter your choice: "))
+        if(option == 1):
+            obj = News()
+            obj.add_User()
+            info.append(obj)
+            input("You have successfully been registered! Click enter to continue:")
+            unused = os.system("cls")
+            display()
+        elif(option == 2):
+            found = 0
+            u = input("Enter your username: ")
+            p = input("Enter your password: ")
+            for i in range(len(info)):
+                if (info[i].username == u and info[i].password == p):
+                    found = 1
+                    unused = os.system("cls")
+                    print("\t\t\t\tYou have successfully logged in! ")
+                    choice = 0
+                    while(choice<6):
+                        print(" 1. Add Views \n 2. View user Details \n 3. Display Views \n 4. Delete Views \n 5. Go back to main menu")
+                        choice = int(input("Enter you choice: "))
+                        if(choice == 1):
+                            info[i].input_Views()
+                            input("Your views have been added! Click enter to continue:")
+                            unused = os.system("cls")
+
+                        elif(choice == 2):
+                            print("Details of the user are as follows: ")
+                            info[i].display_Details()
+                            input("Click enter to continue: ")
+                            unused = os.system("cls")
+
+                        elif(choice == 3):
+                            u1 = input("Enter the username of the person whose views you want to display: ")
+                            found2 = 0
+                            for j in range(len(info)):
+                                if (info[j].username == u1):
+                                    found2 = 1
+                                    info[j].display_Views()
+                                    input("Click enter to continue!")
+                                    unused = os.system("cls")
+                                    break
+                            if (found2 == 0):
+                                input("Username does not exist! Click enter to continue:")
+                                unused = os.system("cls")
+
+                        elif(choice == 4):
+                            info[i].delete_Views()
+                            input("Your views have been deleted! Click enter to continue:")
+                            unused = os.system("cls")
+                        elif(choice ==5):
+                            unused = os.system("cls")
+                            display()
+            if(found == 0):
+                input("This username and password does not exist! Click enter to continue: ")
+                unused = os.system("cls")
+                display()
+
+
+        elif(option == 3):
+            exit()
+
+        else:
+            input("Invalid option! Click enter to continue")
+            unused = os.system("cls")
+            display()
+
+
+display()
